@@ -37,6 +37,7 @@ if operation == 'add' or operation == 'multiply' or operation == 'subtract' or o
 	
 	else: 
 		print("You did not provide numbers")
+		quit()
 else: 
 	print("You failed to give a proper response")
 	quit()
