@@ -1,12 +1,13 @@
 seq_file = open("seqs.fasta")
 max_content = 0
 for line in seq_file.readlines():
+    new_line = line.strip("\n")
     gc_content = 0
 
-    if line[0] != ">":
+    if new_line[0] != ">":
         #print(line)
-        sequence_length = len(line)
-        for nucleotide in line:
+        sequence_length = len(new_line)
+        for nucleotide in new_line:
             if nucleotide.lower() in ['g', 'c']:
                 gc_content+=1
         gc_content_figure = round(gc_content / sequence_length, 3)
@@ -18,9 +19,9 @@ for line in seq_file.readlines():
             max_name = name
         #print(name, gc_content)
     else:
-        name = line[1:]
+        name = new_line[1:]
 
-print("The maximum GC content is in the sequence named: " + max_name, end="")
+print("The maximum GC content is in the sequence named: " + max_name)
 print("The GC content of this sequence is: %a" % max_content)
 
 seq_file.close()
