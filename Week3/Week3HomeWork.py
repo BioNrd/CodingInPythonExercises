@@ -13,7 +13,7 @@ for line in seq_file.readlines():
         gc_content_figure = round(gc_content / sequence_length, 3)
 
         if max_content > gc_content_figure:
-            next
+            pass
         else:    
             max_content = gc_content_figure
             max_name = name
