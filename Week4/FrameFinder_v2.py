@@ -1,4 +1,3 @@
-
 import csv
 
 def check_this_sequence(sequence, start):
@@ -38,7 +37,7 @@ with open('standard_code.tsv', 'r') as infile:
 
 ##
 #open the sequence file, and check the reading frames
-with open('sequences.txt', 'r') as infile:
+with open('test_sequences.txt', 'r') as infile:
     reader = infile
 
     for sequence in reader:
