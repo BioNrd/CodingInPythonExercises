@@ -56,8 +56,7 @@ def get_this_aa(codon):
 def printer(name,aa_list):
     aa_string = ''.join(map(str,aa_list))
     #get ready to print items of a list without the extra '[]' and ',' stuff.
-    f.write(name+'\n')
-    f.write(aa_string+'\n')
+    f.write(name+'\n'+aa_string+'\n')
 
 
 #############
