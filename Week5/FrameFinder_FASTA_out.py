@@ -20,6 +20,7 @@ def read_fasta(fp):
             seq.append(line)
     if name: yield (name, ''.join(seq))
 #http://stackoverflow.com/questions/7654971/parsing-a-fasta-file-using-a-generator-python
+#http://stackoverflow.com/questions/231767/what-does-the-yield-keyword-do-in-python
 
 def is_dna(sequence):
     for base in sequence:
@@ -61,35 +62,38 @@ def printer(name,aa_list):
 
 #############
 
-codon_codes = codon_coder_definer()
+if __name__ == '__main__':
+#http://stackoverflow.com/questions/419163/what-does-if-name-main-do
 
-f = open('translation.fasta', 'w')
+    codon_codes = codon_coder_definer()
 
-with open('test_sequences.txt') as fp:
-    for name, seq in read_fasta(fp):
-        #print(name, seq)
-        print("Working on "+name[1:])
-        stop_counter=0
-        if is_dna(seq):
-            for start in [0,1,2]:
+    f = open('translation.fasta', 'w')
 
-                aa_list = check_this_sequence(seq, start)
+    with open('test_sequences.txt') as fp:
+        for name, seq in read_fasta(fp):
+            #print(name, seq)
+            print("Working on "+name[1:])
+            stop_counter=0
+            if is_dna(seq):
+                for start in [0,1,2]:
 
-                if ('*' in aa_list[-1]):
-                    #check is * is at the end of the list. If so, this is still a potential valid translation.
-                    printer(name,aa_list)
-                    
-                elif any("*" in s for s in aa_list):
-                    #else if * is anywhere else in the list, it is not the correct frame.
-                    stop_counter += 1
-                    next
+                    aa_list = check_this_sequence(seq, start)
 
-                else:
-                    #else, there are no stops, so it is a potential correct frame. 
-                    printer(name,aa_list)
-                    
-            if stop_counter >= 3:
-                print("Stop codon found mid-translation in all frames of "+name[1:])
+                    if ('*' in aa_list[-1]):
+                        #check is * is at the end of the list. If so, this is still a potential valid translation.
+                        printer(name,aa_list)
+                        
+                    elif any("*" in s for s in aa_list):
+                        #else if * is anywhere else in the list, it is not the correct frame.
+                        stop_counter += 1
+                        next
 
-        else: 
-            print('Bad Input in '+name[1:])        
+                    else:
+                        #else, there are no stops, so it is a potential correct frame. 
+                        printer(name,aa_list)
+                        
+                if stop_counter >= 3:
+                    print("Stop codon found mid-translation in all frames of "+name[1:])
+
+            else: 
+                print('Bad Input in '+name[1:])        
